@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+service ReportingService {
+  rpc GetSpaceshipEntries(Coordinates) returns (stream Spaceship);
+}
+
+message Spaceship {
+  enum Alignment {
+    ALLY = 0;
+    ENEMY = 1;
+  }
+
+  enum ShipClass {
+    CORVETTE = 0;
+    FRIGATE = 1;
+    CRUISER = 2;
+    DESTROYER = 3;
+    CARRIER = 4;
+    DREADNOUGHT = 5;
+  }
+
+  message Officer {
+    string first_name = 1;
+    string last_name = 2;
+    string rank = 3;
+  }
+
+  Alignment alignment = 1;
+  string name = 2;
+  ShipClass ship_class = 3;
+  float length = 4;
+  int32 crew_size = 5;
+  bool armed = 6;
+  repeated Officer officers = 7;
+}
+
+message Coordinates {
+  string right_ascension = 1;
+  string declination = 2;
+}
